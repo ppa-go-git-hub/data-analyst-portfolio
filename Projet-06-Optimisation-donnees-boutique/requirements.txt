@@ -1,0 +1,9 @@
+notebook
+numpy
+scipy
+pandas
+openpyxl
+matplotlib
+seaborn
+plotly
+statsmodels
