@@ -1,0 +1,8 @@
+notebook
+pandas
+numpy
+scipy
+statsmodels
+plotly
+kaleido
+scikit-learn
