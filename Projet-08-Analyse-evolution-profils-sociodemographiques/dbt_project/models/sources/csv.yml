@@ -1,0 +1,22 @@
+sources:
+  - name: csv
+    description: "Fichiers CSV sources"
+    tables:
+      - name: students
+        description: "Données sociodémographiques des étudiants Data OC"
+        config:
+          external_location: "read_csv('~/inputs/students.csv')"
+          formatter: oldstyle
+        columns:
+          - name: user_id
+            description: "Identifiant technique unique de l'étudiant"
+          - name: path_category_name
+            description: "Catégorie du parcours suivi (Data)"
+          - name: age_group
+            description: "Classe d'âge au moment du début du parcours"
+          - name: gender
+            description: "Genre déclaré par l'étudiant (F/M ou vide)"
+          - name: region
+            description: "Région de résidence"
+          - name: year_path_started
+            description: "Année de début du parcours"

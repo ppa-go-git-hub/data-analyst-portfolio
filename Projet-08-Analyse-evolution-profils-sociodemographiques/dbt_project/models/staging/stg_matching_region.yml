@@ -1,0 +1,55 @@
+version: 2
+
+models:
+  - name: stg_matching_region
+    description: "Correspondances entre les régions INSEE et OC nettoyées et standardisées"
+    columns:
+      - name: insee_region
+        description: "Région INSEE"
+        tests:
+          - not_null
+          - unique
+          - accepted_values:
+              arguments:
+                values:
+                  - 'Auvergne-Rhône-Alpes'
+                  - 'Bourgogne-Franche-Comté'
+                  - 'Bretagne'
+                  - 'Centre-Val-de-Loire' # Tirets
+                  - 'Corse'
+                  - 'Grand Est'
+                  - 'Hauts-de-France'
+                  - 'Île-de-France'
+                  - 'Normandie'
+                  - 'Nouvelle-Aquitaine'
+                  - 'Occitanie'
+                  - 'Pays de la Loire'
+                  - "Provence-Alpes-Côte d''Azur" # Apostrophe doublée nécessaire
+                  # DROM détaillé
+                  - 'Guadeloupe'
+                  - 'Guyane'
+                  - 'La Réunion'
+                  - 'Martinique'
+                  - 'Mayotte'
+      - name: oc_region
+        description: "Région OC"
+        tests:
+          - not_null
+        # - unique   # DROM détaillé par l'INSEE, regroupé par OC
+          - accepted_values:
+              arguments:
+                values:
+                  - 'Auvergne-Rhône-Alpes'
+                  - 'Bourgogne-Franche-Comté'
+                  - 'Bretagne'
+                  - 'Centre-Val de Loire' # 1 tiret puis des espaces
+                  - 'Corse' # Aucun étudiant
+                  - 'Grand Est'
+                  - 'Hauts-de-France'
+                  - 'Île-de-France'
+                  - 'Normandie'
+                  - 'Nouvelle-Aquitaine'
+                  - 'Occitanie'
+                  - 'Pays de la Loire'
+                  - "Provence-Alpes-Côte d''Azur" # Apostrophe doublée nécessaire
+                  - 'DROM' # Regroupement

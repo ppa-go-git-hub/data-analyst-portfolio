@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: stg_matching_age_group
+    description: "Correspondances entre les tranches d'âge INSEE et OC nettoyées et standardisées"
+    columns:
+      - name: insee_age_group
+        description: "Tranche d'âge INSEE"
+        tests:
+          - not_null
+          - unique
+          - accepted_values:
+              arguments:
+                values:
+                  - '20 à 24 ans'
+                  - '25 à 29 ans'
+                  - '30 à 34 ans'
+                  - '35 à 39 ans'
+                  - '40 à 44 ans'
+                  - '45 à 49 ans'
+                  - '50 à 54 ans'
+                  - '55 à 59 ans'
+                  - '60 à 64 ans'
+                  - '65 à 69 ans'
+                  - '70 à 74 ans'
+                  - '75 à 79 ans'
+                  - '80 à 84 ans'
+                  - '85 à 89 ans'
+                  - '90 à 94 ans'
+                  - '95 ans et plus'
+      - name: oc_age_group
+        description: "Tranche d'âge OC"
+        tests:
+          - not_null # Les tranches d'âge INSEE de moins de 20 ans ont été écartées.
+        # - unique   # Les tranches d'âge INSEE sont détaillées jusqu'à 95 ans, celles de OC jusqu'à 60.
+          - accepted_values:
+              arguments:
+                values:
+                  - '20-24 ans'
+                  - '25-29 ans'
+                  - '30-34 ans'
+                  - '35-39 ans'
+                  - '40-44 ans'
+                  - '45-49 ans'
+                  - '50-54 ans'
+                  - '55-59 ans'
+                  - '60 ans ou plus'

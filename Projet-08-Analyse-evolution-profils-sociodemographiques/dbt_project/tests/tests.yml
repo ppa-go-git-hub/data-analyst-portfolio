@@ -1,0 +1,14 @@
+version: 2
+
+data_tests:
+  - name: test_stg_students
+    description: |
+      Ce test personnalisé permet de mettre en avant 3 propriétés.
+
+      1. Chaque étudiant apparaît toujours dans la même tranche d'âge.
+      2. Chaque étudiant apparaît toujours avec le même genre.
+      3. Chaque étudiant n'apparaît pas plus d'une fois par année de début de parcours.
+  - name: test_mrt_insee_students
+    description: >
+      Ce test personnalisé permet de s'assurer que les totaux de l'INSEE dans la table finale
+      sont toujours nuls lorsque le genre n'est pas renseigné.

@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: src_insee
+    description: "Données démographiques INSEE (dépivotage et concaténation à partir du fichier Excel brut)"
+    config:
+      filepath: "~/inputs/insee.xlsx"
+      year_min: "{{ var('year_min') }}"
+      year_max: "{{ var('year_max') }}"
+    columns:
+      - name: year
+        description: "Année"
+      - name: gender
+        description: "Genre (Hommes/Femmes)"
+      - name: region
+        description: "Région administrative française"
+      - name: age_group
+        description: "Tranche d'âge quinquennal"
+      - name: total
+        description: "Nombre total de personnes comptabilisées"

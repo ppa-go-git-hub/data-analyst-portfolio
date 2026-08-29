@@ -1,0 +1,88 @@
+version: 2
+
+models:
+  - name: stg_insee
+    description: "Données INSEE nettoyées et standardisées"
+    columns:
+      - name: year
+        description: "Année"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [2022, 2023, 2024, 2025]
+      - name: gender
+        description: "Genre (Femme/Homme)"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Femme', 'Homme']
+      - name: region
+        description: "Région"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 'Auvergne-Rhône-Alpes'
+                  - 'Bourgogne-Franche-Comté'
+                  - 'Bretagne'
+                  - 'Centre-Val-de-Loire' # Tirets
+                  - 'Corse'
+                  - 'Grand Est'
+                  - 'Hauts-de-France'
+                  - 'Île-de-France'
+                  - 'Normandie'
+                  - 'Nouvelle-Aquitaine'
+                  - 'Occitanie'
+                  - 'Pays de la Loire'
+                  - "Provence-Alpes-Côte d''Azur" # Apostrophe doublée nécessaire
+                  # DROM détaillé
+                  - 'Guadeloupe'
+                  - 'Guyane'
+                  - 'La Réunion'
+                  - 'Martinique'
+                  - 'Mayotte'
+      - name: age_group
+        description: "Tranche d'âge"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - '0 à 4 ans'
+                  - '5 à 9 ans'
+                  - '10 à 14 ans'
+                  - '15 à 19 ans'
+                  - '20 à 24 ans'
+                  - '25 à 29 ans'
+                  - '30 à 34 ans'
+                  - '35 à 39 ans'
+                  - '40 à 44 ans'
+                  - '45 à 49 ans'
+                  - '50 à 54 ans'
+                  - '55 à 59 ans'
+                  - '60 à 64 ans'
+                  - '65 à 69 ans'
+                  - '70 à 74 ans'
+                  - '75 à 79 ans'
+                  - '80 à 84 ans'
+                  - '85 à 89 ans'
+                  - '90 à 94 ans'
+                  - '95 ans et plus'
+      - name: total
+        description: "Nombre total de personnes comptabilisées"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - year
+              - gender
+              - region
+              - age_group

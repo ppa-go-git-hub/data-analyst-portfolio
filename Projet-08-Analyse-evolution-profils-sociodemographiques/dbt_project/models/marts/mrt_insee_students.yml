@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: mrt_insee_students
+    description: "Regroupement des données INSEE et OC agrégées par année/région/tranche d'âge/genre"
+    columns:
+      - name: year
+        description: "Année"
+        tests:
+          - not_null
+      - name: region
+        description: "Région"
+        tests:
+          - not_null
+      - name: age_group
+        description: "Tranche d'âge"
+        tests:
+          - not_null
+      - name: gender
+        description: "Genre"
+        tests:
+          - not_null
+      - name: total_insee
+        description: "Nombre de personnes comptabilisées par l'INSEE"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+      - name: total_students
+        description: "Nombre d'étudiants"
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - year
+              - region
+              - age_group
+              - gender

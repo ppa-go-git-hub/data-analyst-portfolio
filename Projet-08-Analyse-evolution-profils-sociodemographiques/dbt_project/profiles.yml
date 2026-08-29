@@ -1,0 +1,22 @@
+default:
+  outputs:
+    dev:
+      type: duckdb
+      path: "target/P8.duckdb" # Created on-the-fly
+      schema: dbt_dev
+      threads: 4
+      settings:
+        home_directory: "{{ env_var('DBT_DUCKDB_HOME_DIRECTORY') }}"
+      external_root: "~/outputs"
+  target: dev
+memory:
+  outputs:
+    dev:
+      type: duckdb
+    # path: ":memory:"
+      schema: dbt_dev
+      threads: 4
+      settings:
+        home_directory: "{{ env_var('DBT_DUCKDB_HOME_DIRECTORY') }}"
+      external_root: "~/outputs"
+  target: dev

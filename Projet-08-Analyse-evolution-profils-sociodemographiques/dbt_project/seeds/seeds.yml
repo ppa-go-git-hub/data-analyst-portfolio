@@ -1,0 +1,17 @@
+version: 2
+
+seeds:
+    - name: sed_matching_age_group
+      description: "Correspondances entre les tranches d'âge INSEE et OC"
+      columns:
+        - name: insee_age_group
+          description: "Tranche d'âge INSEE"
+        - name: oc_age_group
+          description: "Tranche d'âge OC"
+    - name: sed_matching_region
+      description: "Correspondances entre les régions INSEE et OC"
+      columns:
+        - name: insee_region
+          description: "Région INSEE"
+        - name: oc_region
+          description: "Région OC"

@@ -1,0 +1,73 @@
+version: 2
+
+models:
+  - name: stg_students
+    description: "Données étudiants nettoyées et standardisées"
+    columns:
+      - name: user_id
+        description: "Identifiant unique"
+        tests:
+        # - unique # Ce test échoue : certains étudiants apparaissent plusieurs fois (voir ci-dessous).
+          - not_null
+      - name: age_group
+        description: "Tranche d'âge"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - '20-24 ans'
+                  - '25-29 ans'
+                  - '30-34 ans'
+                  - '35-39 ans'
+                  - '40-44 ans'
+                  - '45-49 ans'
+                  - '50-54 ans'
+                  - '55-59 ans'
+                  - '60 ans ou plus'
+      - name: gender
+        description: "Genre (Femme/Homme/Non renseigné)"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Femme', 'Homme', 'Non renseigné']
+      - name: region
+        description: "Région"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - 'Auvergne-Rhône-Alpes'
+                  - 'Bourgogne-Franche-Comté'
+                  - 'Bretagne'
+                  - 'Centre-Val de Loire' # 1 tiret puis des espaces
+                  - 'Corse' # Aucun étudiant
+                  - 'Grand Est'
+                  - 'Hauts-de-France'
+                  - 'Île-de-France'
+                  - 'Normandie'
+                  - 'Nouvelle-Aquitaine'
+                  - 'Occitanie'
+                  - 'Pays de la Loire'
+                  - "Provence-Alpes-Côte d''Azur" # Apostrophe doublée nécessaire
+                  - 'DROM' # Regroupement
+      - name: year_path_started
+        description: "Année de début de parcours"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [2022, 2023, 2024, 2025]
+    data_tests:
+      # Certains étudiants apparaissent plusieurs fois, mais pas plus d'une fois par an.
+      # @see https://docs.getdbt.com/faqs/Tests/uniqueness-two-columns
+      - unique:
+          arguments:
+            column_name: "(user_id || '-' || year_path_started)"
+      - dbt_utils.unique_combination_of_columns: # Même test, autre syntaxe
+          arguments:
+            combination_of_columns:
+              - user_id
+              - year_path_started
